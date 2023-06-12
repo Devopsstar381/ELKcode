@@ -1,0 +1,177 @@
+PUT _ilm/policy/capacity_planning_policy
+{
+  "policy": {
+    "phases": {
+      "hot": {
+        "min_age": "0ms",
+        "actions": {
+          "rollover": {
+            "max_age": "7d",
+            "max_size": "50gb"
+          }
+        }
+      },
+      "delete": {
+        "min_age": "60d",
+        "actions": {
+          "delete": {}
+        }
+      }
+    }
+  }
+}
+##############################
+
+PUT _ilm/policy/capacity_planning_policy
+{
+  "policy": {
+    "phases": {
+      "hot": {
+        "actions": {
+          "rollover": {
+            "max_age": "7d",
+            "max_size": "50gb"
+          }
+        }
+      },
+      "metrics": {
+        "min_age": "60d",
+        "actions": {
+          "delete": {}
+        }
+      },
+      "logs": {
+        "min_age": "30d",
+        "actions": {
+          "delete": {}
+        }
+      },
+      "delete": {
+        "min_age": "60d",
+        "actions": {
+          "delete": {}
+        }
+      }
+    }
+  }
+}
+
+#################################
+
+PUT _ilm/policy/data_retention_policy
+{
+  "policy": {
+    "phases": {
+      "hot": {
+        "min_age": "0ms",
+        "actions": {
+          "rollover": {
+            "max_size": "50gb",
+            "max_age": "30d"
+          },
+          "set_priority": {
+            "priority": 100
+          }
+        }
+      },
+      "warm": {
+        "min_age": "7d",
+        "actions": {
+          "forcemerge": {
+            "max_num_segments": 1
+          },
+          "shrink": {
+            "number_of_shards": 1
+          },
+          "allocate": {
+            "number_of_replicas": 1
+          },
+          "set_priority": {
+            "priority": 50
+          }
+        }
+      },
+      "delete": {
+        "min_age": "60d",
+        "actions": {
+          "delete": {}
+        }
+      }
+    }
+  }
+}
+#####################################
+
+PUT _ilm/policy/data_retention_policy
+{
+  "policy": {
+    "phases": {
+      "hot": {
+        "min_age": "0ms",
+        "actions": {
+          "rollover": {
+            "max_age": "30d"
+          },
+          "set_priority": {
+            "priority": 100
+          }
+        }
+      },
+      "warm": {
+        "min_age": "30d",
+        "actions": {
+          "allocate": {
+            "number_of_replicas": 1
+          },
+          "set_priority": {
+            "priority": 50
+          }
+        }
+      },
+      "delete": {
+        "min_age": "60d",
+        "actions": {
+          "delete": {}
+        }
+      }
+    }
+  }
+}
+
+###############################
+
+PUT _ilm/policy/capacity_planning_policy
+{
+  "policy": {
+    "phases": {
+      "hot": {
+        "min_age": "0ms",
+        "actions": {
+          "rollover": {
+            "max_age": "60d"
+          },
+          "set_priority": {
+            "priority": 100
+          }
+        }
+      },
+      "warm": {
+        "min_age": "60d",
+        "actions": {
+          "allocate": {
+            "number_of_replicas": 1
+          },
+          "set_priority": {
+            "priority": 50
+          }
+        }
+      },
+      "delete": {
+        "min_age": "90d",
+        "actions": {
+          "delete": {}
+        }
+      }
+    }
+  }
+}
